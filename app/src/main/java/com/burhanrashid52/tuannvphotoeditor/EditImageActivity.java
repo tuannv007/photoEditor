@@ -1,4 +1,4 @@
-package com.burhanrashid52.imageeditor;
+package com.burhanrashid52.tuannvphotoeditor;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -24,11 +24,14 @@ import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.burhanrashid52.imageeditor.base.BaseActivity;
-import com.burhanrashid52.imageeditor.filters.FilterListener;
-import com.burhanrashid52.imageeditor.filters.FilterViewAdapter;
-import com.burhanrashid52.imageeditor.tools.EditingToolsAdapter;
-import com.burhanrashid52.imageeditor.tools.ToolType;
+import com.burhanrashid52.tuannvphotoeditor.base.BaseActivity;
+import com.burhanrashid52.tuannvphotoeditor.filters.FilterListener;
+import com.burhanrashid52.tuannvphotoeditor.filters.FilterViewAdapter;
+import com.burhanrashid52.tuannvphotoeditor.tools.EditingToolsAdapter;
+import com.burhanrashid52.tuannvphotoeditor.tools.ToolType;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,9 +39,9 @@ import java.io.IOException;
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener;
 import ja.burhanrashid52.photoeditor.PhotoEditor;
 import ja.burhanrashid52.photoeditor.PhotoEditorView;
+import ja.burhanrashid52.photoeditor.PhotoFilter;
 import ja.burhanrashid52.photoeditor.SaveSettings;
 import ja.burhanrashid52.photoeditor.ViewType;
-import ja.burhanrashid52.photoeditor.PhotoFilter;
 
 public class EditImageActivity extends BaseActivity implements OnPhotoEditorListener,
         View.OnClickListener,
@@ -55,7 +58,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     private PropertiesBSFragment mPropertiesBSFragment;
     private EmojiBSFragment mEmojiBSFragment;
     private StickerBSFragment mStickerBSFragment;
-    private TextView mTxtCurrentTool;
     private Typeface mWonderFont;
     private RecyclerView mRvTools, mRvFilters;
     private EditingToolsAdapter mEditingToolsAdapter = new EditingToolsAdapter(this);
@@ -63,7 +65,7 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     private ConstraintLayout mRootView;
     private ConstraintSet mConstraintSet = new ConstraintSet();
     private boolean mIsFilterVisible;
-
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +117,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         ImageView imgClose;
 
         mPhotoEditorView = findViewById(R.id.photoEditorView);
-        mTxtCurrentTool = findViewById(R.id.txtCurrentTool);
         mRvTools = findViewById(R.id.rvConstraintTools);
         mRvFilters = findViewById(R.id.rvFilterView);
         mRootView = findViewById(R.id.rootView);
@@ -137,6 +138,10 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
 
         imgClose = findViewById(R.id.imgClose);
         imgClose.setOnClickListener(this);
+        MobileAds.initialize(this, "ca-app-pub-7616268895623135~2514059800");
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 
@@ -148,7 +153,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
             @Override
             public void onDone(String inputText, int colorCode) {
                 mPhotoEditor.editText(rootView, inputText, colorCode);
-                mTxtCurrentTool.setText(R.string.label_text);
             }
         });
     }
@@ -275,32 +279,27 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     @Override
     public void onColorChanged(int colorCode) {
         mPhotoEditor.setBrushColor(colorCode);
-        mTxtCurrentTool.setText(R.string.label_brush);
     }
 
     @Override
     public void onOpacityChanged(int opacity) {
         mPhotoEditor.setOpacity(opacity);
-        mTxtCurrentTool.setText(R.string.label_brush);
     }
 
     @Override
     public void onBrushSizeChanged(int brushSize) {
         mPhotoEditor.setBrushSize(brushSize);
-        mTxtCurrentTool.setText(R.string.label_brush);
     }
 
     @Override
     public void onEmojiClick(String emojiUnicode) {
         mPhotoEditor.addEmoji(emojiUnicode);
-        mTxtCurrentTool.setText(R.string.label_emoji);
 
     }
 
     @Override
     public void onStickerClick(Bitmap bitmap) {
         mPhotoEditor.addImage(bitmap);
-        mTxtCurrentTool.setText(R.string.label_sticker);
     }
 
     @Override
@@ -346,7 +345,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         switch (toolType) {
             case BRUSH:
                 mPhotoEditor.setBrushDrawingMode(true);
-                mTxtCurrentTool.setText(R.string.label_brush);
                 mPropertiesBSFragment.show(getSupportFragmentManager(), mPropertiesBSFragment.getTag());
                 break;
             case TEXT:
@@ -355,16 +353,13 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                     @Override
                     public void onDone(String inputText, int colorCode) {
                         mPhotoEditor.addText(inputText, colorCode);
-                        mTxtCurrentTool.setText(R.string.label_text);
                     }
                 });
                 break;
             case ERASER:
                 mPhotoEditor.brushEraser();
-                mTxtCurrentTool.setText(R.string.label_eraser);
                 break;
             case FILTER:
-                mTxtCurrentTool.setText(R.string.label_filter);
                 showFilter(true);
                 break;
             case EMOJI:
@@ -405,7 +400,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     public void onBackPressed() {
         if (mIsFilterVisible) {
             showFilter(false);
-            mTxtCurrentTool.setText(R.string.app_name);
         } else if (!mPhotoEditor.isCacheEmpty()) {
             showSaveDialog();
         } else {

@@ -1,4 +1,4 @@
-package com.burhanrashid52.imageeditor;
+package com.burhanrashid52.tuannvphotoeditor;
 
 import android.app.Dialog;
 import android.content.Context;

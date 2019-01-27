@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Photo Editor</string>
-    <string name="label_brush">Brush</string>
-    <string name="label_emoji">Emoji</string>
-    <string name="label_sticker">Sticker</string>
-    <string name="label_eraser">Eraser</string>
-    <string name="label_text">Text</string>
-    <string name="label_filter">Filter</string>
+    <string name="app_name">Chỉnh sửa ảnh</string>
+    <string name="label_brush">Vẽ</string>
+    <string name="label_emoji">Icon</string>
+    <string name="label_sticker">Nhãn dán</string>
+    <string name="label_eraser">Xóa</string>
+    <string name="label_text">Thêm chữ</string>
+    <string name="label_filter">Chỉnh màu</string>
     <string name="label_adjust">Adjust</string>
 </resources>

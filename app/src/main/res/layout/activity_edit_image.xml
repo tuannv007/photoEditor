@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="#5FB1F3"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -18,9 +19,9 @@
 
     <ja.burhanrashid52.photoeditor.PhotoEditorView
         android:id="@+id/photoEditorView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
+        app:layout_constraintBottom_toTopOf="@+id/imgUndo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +31,7 @@
         android:id="@+id/imgUndo"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:background="#99000000"
+        android:background="#5FB1F3"
         android:padding="8dp"
         android:src="@drawable/ic_undo"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
@@ -40,7 +41,7 @@
         android:id="@+id/imgRedo"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:background="#99000000"
+        android:background="#5FB1F3"
         android:padding="8dp"
         android:src="@drawable/ic_redo"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
@@ -50,7 +51,7 @@
         android:id="@+id/imgGallery"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:background="#99000000"
+        android:background="#5FB1F3"
         android:padding="8dp"
         android:src="@drawable/ic_gallery"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
@@ -60,7 +61,7 @@
         android:id="@+id/imgCamera"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:background="#99000000"
+        android:background="#5FB1F3"
         android:padding="8dp"
         android:src="@drawable/ic_camera"
         app:layout_constraintBottom_toTopOf="@+id/rvConstraintTools"
@@ -82,7 +83,6 @@
         android:id="@+id/rvConstraintTools"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/tool_bg"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
@@ -92,11 +92,13 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/row_editing_tools" />
 
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvFilterView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/tool_bg"
+        android:background="#CDDC39"
         android:orientation="horizontal"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/rvConstraintTools"
@@ -104,19 +106,20 @@
         app:layout_constraintTop_toTopOf="@+id/rvConstraintTools"
         tools:listitem="@layout/row_filter_view" />
 
-    <TextView
-        android:id="@+id/txtCurrentTool"
-        android:layout_width="wrap_content"
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:singleLine="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:text="@string/app_name"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline" />
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        />
 
     <ImageView
         android:id="@+id/imgSave"

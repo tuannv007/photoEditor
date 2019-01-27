@@ -1,4 +1,4 @@
-package com.burhanrashid52.imageeditor.base;
+package com.burhanrashid52.tuannvphotoeditor.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

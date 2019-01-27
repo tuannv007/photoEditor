@@ -1,7 +1,6 @@
-package com.burhanrashid52.imageeditor.tools;
+package com.burhanrashid52.tuannvphotoeditor.tools;
 
 import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.burhanrashid52.imageeditor.R;
+import com.burhanrashid52.tuannvphotoeditor.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +25,12 @@ public class EditingToolsAdapter extends RecyclerView.Adapter<EditingToolsAdapte
 
     public EditingToolsAdapter(OnItemSelected onItemSelected) {
         mOnItemSelected = onItemSelected;
-        mToolList.add(new ToolModel("Brush", R.drawable.ic_brush, ToolType.BRUSH));
-        mToolList.add(new ToolModel("Text", R.drawable.ic_text, ToolType.TEXT));
-        mToolList.add(new ToolModel("Eraser", R.drawable.ic_eraser, ToolType.ERASER));
-        mToolList.add(new ToolModel("Filter", R.drawable.ic_photo_filter, ToolType.FILTER));
-        mToolList.add(new ToolModel("Emoji", R.drawable.ic_insert_emoticon, ToolType.EMOJI));
-        mToolList.add(new ToolModel("Sticker", R.drawable.ic_sticker, ToolType.STICKER));
+        mToolList.add(new ToolModel("Vẽ", R.drawable.ic_brush, ToolType.BRUSH));
+        mToolList.add(new ToolModel("Thêm chữ", R.drawable.ic_text, ToolType.TEXT));
+        mToolList.add(new ToolModel("Xóa", R.drawable.ic_eraser, ToolType.ERASER));
+        mToolList.add(new ToolModel("Hiệu ứng", R.drawable.ic_photo_filter, ToolType.FILTER));
+        mToolList.add(new ToolModel("Icon", R.drawable.ic_insert_emoticon, ToolType.EMOJI));
+        mToolList.add(new ToolModel("Khung", R.drawable.ic_sticker, ToolType.STICKER));
     }
 
     public interface OnItemSelected {
